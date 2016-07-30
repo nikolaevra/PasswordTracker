@@ -1,24 +1,14 @@
 package com.example.ruslan.mylastpass;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
-import android.support.v4.view.animation.FastOutLinearInInterpolator;
 import android.support.v7.app.AppCompatActivity;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.MediaController;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.VideoView;
-
-import java.io.IOException;
 
 
 public class LoginActivity extends AppCompatActivity implements
@@ -26,7 +16,7 @@ public class LoginActivity extends AppCompatActivity implements
         FingerprintHandler.OnAuthenticationErrorListener{
 
     private FingerprintHandler mFingerprintHandler;
-    ImageView imageView1, imageView2;
+    ImageView imageView1, imageView2, imageView3;
     TextView textView;
 
     @Override
@@ -39,18 +29,8 @@ public class LoginActivity extends AppCompatActivity implements
 
         imageView1 = (ImageView) findViewById(R.id.imageView1);
         imageView2 = (ImageView) findViewById(R.id.imageView2);
+        imageView3 = (ImageView) findViewById(R.id.lock);
         textView = (TextView) findViewById(R.id.textView);
-        textView.setTextColor(Color.WHITE);
-
-        VideoView videoView =(VideoView)findViewById(R.id.vv01);
-
-        //specify the location of media file
-        Uri myUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.login_footage);
-
-        //Setting MediaController and URI, then starting the videoView
-        videoView.setVideoURI(myUri);
-        videoView.requestFocus();
-        videoView.start();
     }
 
     @Override
@@ -58,6 +38,7 @@ public class LoginActivity extends AppCompatActivity implements
         imageView1.setImageResource(R.drawable.decline);
         Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
         imageView1.startAnimation(shake);
+        imageView3.startAnimation(shake);
 
         textView.setText(R.string.failed);
         textView.setTextColor(Color.RED);
@@ -75,6 +56,7 @@ public class LoginActivity extends AppCompatActivity implements
 
     @Override
     public void onAuthSucceeded() {
+        imageView3.setImageResource(R.drawable.lock1);
         imageView1.animate().alpha(0f).setDuration(300);
         imageView2.animate().alpha(1f).rotationBy(90f).setDuration(1000);
 
@@ -95,6 +77,7 @@ public class LoginActivity extends AppCompatActivity implements
     @Override
     public void onResume() {
         super.onResume();
+        imageView3.setImageResource(R.drawable.lock);
         imageView1.animate().alpha(1f).setDuration(0);
         imageView2.animate().alpha(0f).setDuration(0);
 
