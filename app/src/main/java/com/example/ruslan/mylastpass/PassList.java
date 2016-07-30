@@ -93,7 +93,6 @@ public class PassList extends AppCompatActivity {
                                 Names.remove(i);
                                 Passes.remove(i);
                                 Logins.remove(i);
-
                                 save();
 
                                 arrayAdapter.notifyDataSetChanged();
@@ -155,22 +154,23 @@ public class PassList extends AppCompatActivity {
     }
 
     private void disparseArrayList (String string) throws JSONException {
-
         ArrayList<String> JArray = new ArrayList<>(Arrays.asList(string.split(" | ")));
 
-        JSONArray jsonArray = new JSONArray(JArray.get(0));
-        for (int i = 0; i < jsonArray.length(); i++) {
-            Passes.add(jsonArray.get(i).toString());
-        }
+        if (Passes.size() == 0) {
+            JSONArray jsonArray = new JSONArray(JArray.get(0));
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Passes.add(i, jsonArray.get(i).toString());
+            }
 
-        jsonArray = new JSONArray(JArray.get(2));
-        for (int i = 0; i < jsonArray.length(); i++) {
-            Names.add(jsonArray.get(i).toString());
-        }
+            jsonArray = new JSONArray(JArray.get(2));
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Names.add(i, jsonArray.get(i).toString());
+            }
 
-        jsonArray = new JSONArray(JArray.get(4));
-        for (int i = 0; i < jsonArray.length(); i++) {
-            Logins.add(jsonArray.get(i).toString());
+            jsonArray = new JSONArray(JArray.get(4));
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Logins.add(i, jsonArray.get(i).toString());
+            }
         }
     }
 

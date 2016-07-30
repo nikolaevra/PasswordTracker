@@ -37,7 +37,7 @@ public class AddPass extends AppCompatActivity {
                 String log = login.getText().toString();
                 String site = siteName.getText().toString();
 
-                if (pass != null || log != null || site != null) {
+                if (pass.length() != 0  && log.length() != 0 && site.length() != 0) {
                     PassList.Passes.add(pass);
                     PassList.Names.add(site);
                     PassList.Logins.add(log);
