@@ -1,14 +1,24 @@
 package com.example.ruslan.mylastpass;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.support.v4.view.animation.FastOutLinearInInterpolator;
 import android.support.v7.app.AppCompatActivity;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.VideoView;
+
+import java.io.IOException;
 
 
 public class LoginActivity extends AppCompatActivity implements
@@ -30,7 +40,17 @@ public class LoginActivity extends AppCompatActivity implements
         imageView1 = (ImageView) findViewById(R.id.imageView1);
         imageView2 = (ImageView) findViewById(R.id.imageView2);
         textView = (TextView) findViewById(R.id.textView);
-        textView.setTextColor(Color.GRAY);
+        textView.setTextColor(Color.WHITE);
+
+        VideoView videoView =(VideoView)findViewById(R.id.vv01);
+
+        //specify the location of media file
+        Uri myUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.login_footage);
+
+        //Setting MediaController and URI, then starting the videoView
+        videoView.setVideoURI(myUri);
+        videoView.requestFocus();
+        videoView.start();
     }
 
     @Override
@@ -67,6 +87,7 @@ public class LoginActivity extends AppCompatActivity implements
             public void run() {
                 Intent intent = new Intent(getApplicationContext(), PassList.class);
                 startActivity(intent);
+                imageView2.animate().alpha(0f).rotationBy(-90f).setDuration(0);
             }
         }, 1000);
     }
